@@ -12,14 +12,9 @@ python get_hub_genes.py nodeinfo.txt hub_gene
 ```
 #mcl 14-137
 mcl network.txt --abc -o module_network
-```
-## 4.Network clustering using MCL
-```
-#mcl 14-137
-mcl network.txt --abc -o network_module
 python set_network_module.py -m network_module -o network.module.csv
 ```
-## 5.Known gene test
+## 4.Known gene test
 ```
 python known_gene_test.py
 ```
