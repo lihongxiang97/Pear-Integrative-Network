@@ -4,15 +4,15 @@ This section contains the machine learning scripts and steps used in the researc
 Make sure you have Python 3 and pip installed.  
 The following are the version information of the Python modules required by the script：  
 ```
-python==3.9.18  
-numpy==1.26.2  
-pandas==2.1.3  
-scikit-learn==1.3.2  
-tensorflow==2.15.0  
-keras==2.15.0  
-tqdm==4.66.1  
-xgboost==2.0.2  
-plotnine==0.12.4  
+python==3.9.18
+numpy==1.26.2
+pandas==2.1.3
+scikit-learn==1.3.2
+tensorflow==2.15.0
+keras==2.15.0
+tqdm==4.66.1
+xgboost==2.0.2
+plotnine==0.12.4
 tqdm==4.66.1
 ```
 After testing, the script can run in this environment.
