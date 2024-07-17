@@ -1,44 +1,38 @@
-# Functional divergence of duplications
-This section is to cluster and evaluate the functional differences of duplicate genes from a network perspective.
-## 1.Detection of duplicate genes
-Using Nnu as the outgroup, dupgen_finder was used to detect five types of duplicate genes.
-## 2.Extraction of non-repetitive genes
-Genes that do not belong to any of the categories of duplicate genes are classified as Non-paralogous genes.
-## 3.Detect the ratio of pairs in the same module
+# Machine Learning
+This section contains the machine learning scripts and steps used in the research.
+## 1.Prepare Python environment for machine learning
+Make sure you have Python 3 and pip installed.
+The following are the version information of the Python modules required by the script：
+python==3.9.18
+numpy==1.26.2
+pandas==2.1.3
+scikit-learn==1.3.2
+tensorflow==2.15.0
+keras==2.15.0
+tqdm==4.66.1
+xgboost==2.0.2
+plotnine==0.12.4
+tqdm==4.66.1
+After testing, the script can run in this environment.
+## 2.Prepare positive genes and negative genes
+The sample files are in the Data/1.train_gene.
+## 3.Start training and testing
+### Using pipline script
 ```
-# Input two columns of pairs and mcl clustering module files to output the proportion in the same module
-python cal_enriched_ratio.py ../1.dup_gene_pairs/Pbr.transposed.pairs network_module
-#Non-paralogous genes randomly pick two pairs, take 1000 pairs, and calculate the proportion of the 1000 pairs that belong to the same module
-python cal_enriched_ratio_for_non_para.py ../1.dup_gene_pairs/Non-paralogous.genes network_module
-#Run each type and record it in Enriched_ratio.csv, and use plot_bar.py script to draw the graph
-python plot_bar.py
+train_test_pipline.py --positive positive_gene --negative negative_gene --test test_gene --nodeinfo nodeinfo.txt --sd sd.parquet --TPM all.TPM.csv --Protein Pbr_Fruit_protein.csv --train_type Multi_transcriptomic Proteomic Fd_transcriptomic
+
+  --positive POSITIVE   Positive gene list file
+  --negative NEGATIVE   Negative gene list file
+  --test TEST           test gene list file
+  --nodeinfo NODEINFO   Nodeinfo file of network
+  --sd SD               sd.parquet file of network,sd.parquet can transfrom from sd.txt by script 'tran_parquet.py'
+  --TPM TPM             TPM file of network
+  --Protein PROTEIN     Protein file of network
+  --train_type {Multi_transcriptomic,Fd_transcriptomic,Proteomic} [{Multi_transcriptomic,Fd_transcriptomic,Proteomic} ...]
+                        The data type you want to train, you can add one or more type to train data.
 ```
-## 4.Detect SD between different types of duplicate genes
+### Or you can use standalone scripts for training and prediction
 ```
-#Process the network edge files
-a=trans_network.csv
-cut -f 1,2 -d ',' $a|sed 's/,/\t/g' >`basename $a .csv`.txt
-#run genecommon.py for 5 types
-for i in `cat ../GRN/id.txt`;do nohup python ../genecommon.py trans_network.txt nodeinfo.txt ../../1.dup_gene_pairs/Pbr.$i.pairs >trans_$i.txt &;done
-#Organize five differentiation types using dabsab.pl
-#To use this script, you need to prepare id.txt in the current directory
-$ cat id.txt
-Dispersed
-Proximal
-Tandem
-Transposed
-WGD
-###############
-perl dabsab.pl GRN >GRN-type.txt
-```
-## 5.WGD change
-```
-grep wgd trans/trans-type.txt|cut -f 1,2,5 >WGD-change.txt
-grep wgd prot/prot-type.txt|cut -f 5 >1
-paste WGD-change.txt 1 >tmp && mv tmp WGD-change.txt
-#Add head: id1\tid2\tIN\tGRN
-#Remove empty rows
-awk -F'\t' '$3 != "" && $4 != "" {print}' WGD-change.txt >t &&mv t WGD-change.txt
-# Take the changed gene pairs and draw a picture
-awk -F'\t' '$3 != $4' WGD-change.txt >t && mv t WGD-change.txt
+#example:
+Trainning_results_Fd_transcriptomic_Proteomic.py --train train.csv --test test.csv --randomnum 20 --modeldir ./model --dir ./result --gpu
 ```
