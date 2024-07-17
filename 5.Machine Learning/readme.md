@@ -21,6 +21,9 @@ The sample files are in the Data/1.train_gene.
 ## 3.Start training and testing
 ### Using pipline script
 ```
+#Before using pipline, you need to add all scripts in Scripts to PATH and grant execution permissions.
+export PATH=/where/folder/locate/Scripts:$PATH
+chmod +x script.py
 train_test_pipline.py --positive positive_gene --negative negative_gene --test test_gene --nodeinfo nodeinfo.txt --sd sd.parquet --TPM all.TPM.csv --Protein Pbr_Fruit_protein.csv --train_type Multi_transcriptomic Proteomic Fd_transcriptomic
 
   --positive POSITIVE   Positive gene list file
