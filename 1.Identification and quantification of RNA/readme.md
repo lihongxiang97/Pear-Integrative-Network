@@ -7,8 +7,8 @@ fastp -i input_1.fastq.gz -I input_2.fastq.gz -o out_1.fastq.gz -O out_2.fastq.g
 ```
 ## circRNA-seq
 The released data has been clean data without adapters and low-quality sequences.
-Deduplication using fastuniq:
 ```bash
+#Deduplication using fastuniq
 fastuniq -i t12 -t q -o 02.fastuniq/circ_DAF85-2.uq.R1.fq -p 02.fastuniq/circ_DAF85-2.uq.R2.fq
 ```
 t12 is the location of input file, like:
@@ -27,4 +27,9 @@ for i in `cat sample_list`;do nohup cutadapt -a TGGAATTCTCGGGTGCCAAGG -g GTTCAGA
 for i in `cat sample_list`;do
 nohup cutadapt -a "A{10}" --no-trim --untrimmed-o 02.CleanData/${i}_trimmed_adapter_rmploya.fq.gz -m 15 -e 0 -O 10 --no-indels --max-n 0.1 02.CleanData/${i}_trimmed_adapter.fq.gz >$i.rmpolya.log &
 done
+#Filter sequences not within 18-26 nt
+for i in `cat sample_list`;do nohup seqkit seq 02.CleanData/${i}_trimmed_adapter_rmploya.fq.gz -m 18 -M 26 -g -o 03.trim18-26/${i}.18-26.fq.gz &;done
+for i in `cat sample_list`;do nohup seqkit fq2fa 03.trim18-26/${i}.18-26.fq.gz -w 0 > 03.trim18-26/${i}.18-26.fa &;done
 ```
+## lncRNA-seq
+The released data has been clean data without adapters and low-quality sequences.
