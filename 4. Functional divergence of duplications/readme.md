@@ -15,6 +15,12 @@ python plot_bar.py
 ```
 ## 4.Detect SD between different types of duplicate genes
 ```
+python get_sd.py Pbr.tandem.pairs GRN-sd.parquet Tandem >Tandem.sd
+#Randomly select 1000 pairs of non-paralogous genes and extract their sd
+python get_sd_for_non_para.py Non-paralogous.genes GRN-sd.parquet Non-paralogous >non-paralogous.sd
+```
+## 5.Identity five divergence patterns of duplicate genes
+```
 #Process the network edge files
 a=trans_network.csv
 cut -f 1,2 -d ',' $a|sed 's/,/\t/g' >`basename $a .csv`.txt
@@ -31,7 +37,7 @@ WGD
 ###############
 perl dabsab.pl GRN >GRN-type.txt
 ```
-## 5.WGD change
+## 6.WGD change
 ```
 grep wgd trans/trans-type.txt|cut -f 1,2,5 >WGD-change.txt
 grep wgd prot/prot-type.txt|cut -f 5 >1
