@@ -14,10 +14,20 @@ Networks serve as powerful tools for revealing comprehensive landscapes of gene 
 
 ---
 
+## pearGRN Database
+
+We have constructed the **pearGRN** database as an interactive platform for exploring the Pear Integrative Network.
+
+Researchers are warmly welcome to use pearGRN for gene function exploration, regulatory relationship discovery, and trait-related network analysis.
+
+Access pearGRN at:  
+https://peargrn.njau.edu.cn/
+
+---
+
 ## Citation
 
 Please cite the following paper if you find this repository useful in your research:
 
-**A multi-omics integrative gene network of pear *(Pyrus)*.
-Journal of Integrative Plant Biology.**
+**A multi-omics integrative gene network of pear *(Pyrus)*. Journal of Integrative Plant Biology.**
 https://doi.org/10.1111/jipb.70117
