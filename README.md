@@ -18,6 +18,6 @@ Networks serve as powerful tools for revealing comprehensive landscapes of gene 
 
 Please cite the following paper if you find this repository useful in your research:
 
-*A multi-omics integrative gene network of pear (Pyrus).*  
+**A multi-omics integrative gene network of pear**  *(Pyrus)*.
 Journal of Integrative Plant Biology.  
 https://doi.org/10.1111/jipb.70117
